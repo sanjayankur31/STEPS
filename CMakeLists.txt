@@ -105,40 +105,7 @@ endforeach()
 # for debug symbol
 include(CMake/UseDebugSymbols.cmake)
 
-add_options(ALL_LANGUAGES
-            ALL_BUILDS
-            "-Wall"
-            "-Wextra"
-            "-Wshadow"
-            "-Wnon-virtual-dtor"
-            "-Wunused"
-            "-Woverloaded-virtual"
-            "-Wformat=2")
-
-if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-  add_options(ALL_LANGUAGES
-              ALL_BUILDS
-              "-Wcast-align"
-              "-Wdouble-promotion"
-              "-Wold-style-cast"
-              "-Wnull-dereference"
-              "-Wpedantic")
-endif()
-
 # FIXME TCL: compile with 2 flags below "-Wconversion" "-Wsign-conversion"
-
-if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-  add_options(ALL_LANGUAGES
-              ALL_BUILDS
-              "-Wmisleading-indentation"
-              "-Wduplicated-cond"
-              "-Wlogical-op"
-              "-Wuseless-cast")
-  if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "7.0")
-    add_options(ALL_LANGUAGES ALL_BUILDS "-Wno-implicit-fallthrough")
-  endif()
-
-endif()
 
 set(CMAKE_CXX_FLAGS "${CXX_DIALECT_OPT_CXX11} ${CMAKE_CXX_FLAGS}")
 
