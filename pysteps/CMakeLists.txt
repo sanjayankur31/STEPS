@@ -54,28 +54,5 @@ set_target_properties(cysteps
                                  OUTPUT_NAME
                                  ${cymodname})
 
-# Pure python package
-add_custom_target(steps_package_pure_py ALL
-                  DEPENDS ${steps_package_timestamp}) # random file bridging
-                                                      # target->command
-add_custom_command(OUTPUT ${steps_package_timestamp}
-                   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                   COMMAND ${PYTHON_EXECUTABLE} ${setup_py} build
-                           --build-base=${CMAKE_BINARY_DIR} install
-                           --install-lib "${libdir}"
-                           --no-compile
-                           --force
-                   COMMAND ${CMAKE_COMMAND} -E touch ${steps_package_timestamp}
-                           # setup.py already tracks changed .py files. We set
-                           # DEPENDS just to set the order: copy .py after
-                           # building the lib
-                   DEPENDS cysteps)
-
 # Install compiled lib
 install(TARGETS cysteps LIBRARY DESTINATION "${PYTHON_INSTALL_PREFIX}/steps/")
-
-# Install python package, from cmake_setup.py
-install(
-  CODE
-  "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${setup_py} build --build-base=${CMAKE_BINARY_DIR} install --install-lib=${PYTHON_INSTALL_PREFIX} --force WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})"
-  )
