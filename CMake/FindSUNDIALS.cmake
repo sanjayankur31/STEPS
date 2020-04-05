@@ -11,19 +11,10 @@
 # -----------------------------------------------------------------------------
 
 include(FindPackageHandleStandardArgs)
-
-find_path(SUNDIALS_DIR include/sundials/sundials_config.h
-          HINTS ${SUNDIALS_INSTALL_DIR} ENV
-          PATHS $ENV{HOME}/sundials
-          DOC "Sundials Directory")
-
 message(STATUS "SUNDIALS_DIR=${SUNDIALS_DIR}")
 
 if(SUNDIALS_DIR)
   set(SUNDIALS_FOUND YES)
-
-  set(SUNDIALS_INCLUDE_DIR ${SUNDIALS_DIR}/include)
-  set(SUNDIALS_LIBRARY_DIR ${SUNDIALS_DIR}/lib)
 
   # The set of required Sundials libraries
   set(SUNDIALS_REQUIRED_LIBS sundials_nvecserial sundials_ida sundials_kinsol)
