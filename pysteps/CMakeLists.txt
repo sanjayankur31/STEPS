@@ -35,11 +35,7 @@ add_custom_command(OUTPUT ${cython_output}
 
 
 # .cpp -> .so (it will be a single .so without dxependencies on libsteps)
-set(CYSTEPS_COMPILE_FLAGS
-    "-Wno-strict-aliasing -Wno-tautological-compare -Wno-useless-cast \
-     -Wno-format -Wno-double-promotion -Wno-unsequenced \
-     -Wno-unused-parameter -Wno-old-style-cast -Wno-unused-variable \
-     -Wno-shadow -Wno-parentheses -Wno-cast-align")
+set(CYSTEPS_COMPILE_FLAGS "")
 
 python_add_module(cysteps ${cython_output})
 
